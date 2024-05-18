@@ -3,7 +3,7 @@ from .views import MovieViewSet, CommentViewSet
 
 urlpatterns = [
     # MOVIE
-    path('movie/get-all-movies/', MovieViewSet.as_view({'get': 'get_all'})),
+    path('movie/get-all/', MovieViewSet.as_view({'get': 'get_all'})),
     path('movie/get-one/', MovieViewSet.as_view({'get': 'get_one'})),
     path('movie/by-genre/', MovieViewSet.as_view({'get': 'get_by_genre'})),
     path('movie/by-director/', MovieViewSet.as_view({'get': 'get_by_director'})),
