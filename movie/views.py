@@ -3,17 +3,20 @@ from rest_framework.response import Response
 from rest_framework import status
 from movie.serializers import MovieSerializer, SavedSerializer
 from rest_framework.decorators import action
+from drf_spectacular.utils import extend_schema
 
-from movie.models import Movie, Genre, Actor, Director, Saved, Comment, Transaction
+from .models import Movie, Saved
 
 
 class MovieViewSet(ViewSet):
+    @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['get'])
     def get_all(self, request):
         movies = Movie.objects.all()
         serializer = MovieSerializer(movies, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['get'])
     def get_one(self, request):
         data = request.data
@@ -21,6 +24,7 @@ class MovieViewSet(ViewSet):
         serializer = MovieSerializer(movie, many=False)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['get'])
     def get_by_genre(self, request):
         data = request.data
@@ -28,6 +32,7 @@ class MovieViewSet(ViewSet):
         serializer = MovieSerializer(movies, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['get'])
     def get_by_director(self, request):
         data = request.data
@@ -35,6 +40,7 @@ class MovieViewSet(ViewSet):
         serializer = MovieSerializer(movies, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['get'])
     def get_by_actor(self, request):
         data = request.data
@@ -42,6 +48,7 @@ class MovieViewSet(ViewSet):
         serializer = MovieSerializer(movies, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['post'])
     def save_movie(self, request):
         data = request.data
