@@ -24,14 +24,22 @@ class Director(models.Model):
         return self.name
 
 
+class Type(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Movie(models.Model):
     title = models.CharField(max_length=200)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, blank=True, null=True)
+    imdb_rating = models.FloatField()
     description = models.TextField()
     release_date = models.DateField()
     genre = models.ManyToManyField(Genre)
     actors = models.ManyToManyField(Actor)
     directors = models.ForeignKey(Director, on_delete=models.CASCADE)
-    imdb_rating = models.FloatField()
 
     def __str__(self):
         return self.title

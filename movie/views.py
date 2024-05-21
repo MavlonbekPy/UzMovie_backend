@@ -48,11 +48,13 @@ class MovieViewSet(ViewSet):
         serializer = MovieSerializer(movies, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+
+class SavedViewSet(ViewSet):
     @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['post'])
     def save_movie(self, request):
         data = request.data
-        saved = Saved.objects.create(user=data['user'], movie=data['movie'])
+        saved = Saved.objects.create(user_id=data['user'], movie_id=data['movie'])
         serializer = SavedSerializer(saved, data=data)
         if serializer.is_valid():
             serializer.save()

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre, Actor, Director, Movie, Comment, Saved, Transaction
+from .models import Genre, Actor, Director, Movie, Comment, Saved, Transaction, Type
 
 
 class ActorAdmin(admin.ModelAdmin):
@@ -7,6 +7,10 @@ class ActorAdmin(admin.ModelAdmin):
 
 
 class GenreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+class TypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
 
@@ -31,6 +35,7 @@ class TransactionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Genre, GenreAdmin)
+admin.site.register(Type, TypeAdmin)
 admin.site.register(Actor, ActorAdmin)
 admin.site.register(Director, DirectorAdmin)
 admin.site.register(Movie, MovieAdmin)
