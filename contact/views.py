@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -7,6 +8,8 @@ from drf_spectacular.utils import extend_schema
 
 
 class ContactViewSet(ViewSet):
+    permission_classes = [IsAuthenticated]
+
     @extend_schema(responses=ContactSerializer)
     @action(detail=False, methods=['post'])
     def contact(self, request, *args, **kwargs):

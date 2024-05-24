@@ -1,6 +1,9 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+
+from authentication import permissions
 from movie.serializers import MovieSerializer, SavedSerializer
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema
@@ -9,6 +12,8 @@ from .models import Movie, Saved
 
 
 class MovieViewSet(ViewSet):
+    permission_classes = [IsAuthenticated]
+
     @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['get'])
     def get_all(self, request):
@@ -50,6 +55,8 @@ class MovieViewSet(ViewSet):
 
 
 class SavedViewSet(ViewSet):
+    permission_classes = [IsAuthenticated]
+
     @extend_schema(responses=MovieSerializer)
     @action(detail=False, methods=['post'])
     def save_movie(self, request):
@@ -66,6 +73,8 @@ class SavedViewSet(ViewSet):
 
 
 class CommentViewSet(ViewSet):
+    permission_classes = [IsAuthenticated]
+
     def create(self, request):
         pass
 
